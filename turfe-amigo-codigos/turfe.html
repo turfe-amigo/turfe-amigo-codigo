@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Turfe Amigo</title>
+    <link rel="stylesheet" href="turfe.css">
 </head>
 
 <body>
@@ -33,25 +34,27 @@
     var cont = 1;
 
     function volta() {
-        if (cont <= 7) {
-            for (let i = 1; i < 6; i++) {
-                let cavalo = Number((Math.random() * 2 + 7).toFixed(1))
-                rodadas[`cavalo${i}`].push(cavalo);
+        if (cont <= 8) {
+            if (cont <= 7) {
+                for (let i = 1; i < 6; i++) {
+                    let cavalo = Number((Math.random() * 2 + 7).toFixed(1))
+                    rodadas[`cavalo${i}`].push(cavalo);
 
-                tempoTotal[`cavalo${i}`] += cavalo
+                    tempoTotal[`cavalo${i}`] += cavalo
+                }
+                visualizar()
+            } else {
+                resultado();
             }
-            visualizar()
-        } else {
-            resultado();
-        }
 
-        cont++
+            cont++
+        }
     }
 
     function visualizar() {
-        msg_tela.innerHTML += `<br>Volta ${cont} <br>`
+        msg_tela.innerHTML += `<div class="volta-titulo"> Volta ${cont} </div>`
         for (let i = 1; i < 6; i++) {
-            msg_tela.innerHTML += ` – Cavalo${i} – ${rodadas[`cavalo${i}`][cont - 1]} – ${tempoTotal[`cavalo${i}`].toFixed(1)}`
+            msg_tela.innerHTML += `<div class="linha-cavalo"> – Cavalo ${i} – ${rodadas[`cavalo${i}`][cont - 1]} – ${tempoTotal[`cavalo${i}`].toFixed(1)} </div>`
         }
     }
 
@@ -79,7 +82,7 @@
                 second.push([`cavalo${i}`])
                 temposecond.push(tempoTotal[`cavalo${i}`])
             }
-            
+
             else if (tempothird[0] > tempoTotal[`cavalo${i}`]) {
                 third[0] = [`cavalo${i}`]
                 tempothird[0] = tempoTotal[`cavalo${i}`]
@@ -89,11 +92,23 @@
             }
         }
 
+        let html = `<div class="fim-titulo">🏁 FIM DE CORRIDA 🏁</div>`
+
         if (first.length >= 3) {
-            
+            html += `<div class="podio">🥇 Empate entre: ${first.join(', ')} (${tempofirst[0].toFixed(1)}s)</div>`
+            html += `<div class="podio">Sem 2º e 3º lugar</div>`
+        } else {
+            html += `<div class="podio">🥇 1º lugar: ${first.join(' e ')} (${tempofirst[0].toFixed(1)}s)</div>`
+
+            if (second[0] !== '') {
+                html += `<div class="podio">🥈 2º lugar: ${second.join(' e ')} (${temposecond[0].toFixed(1)}s)</div>`
+            }
+
+            if (third[0] !== '') {
+                html += `<div class="podio">🥉 3º lugar: ${third.join(' e ')} (${tempothird[0].toFixed(1)}s)</div>`
+            }
         }
-        console.log(first)
-        console.log(second)
-        console.log(third)
+
+        msg_tela.innerHTML += html
     }
 </script>
