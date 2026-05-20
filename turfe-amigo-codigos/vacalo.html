@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vacalo</title>
+</head>
+
+<body>
+    <h1>Descruba o Vacalo mas Velois</h1>
+    <br><br>
+    <button onclick="volta()">Dar Vorta</button>
+    <br><br>
+    <div id="div_msg"></div>
+</body>
+
+</html>
+<script>
+
+    let json_volta = {
+        cavalo_1: [],
+        cavalo_2: [],
+        cavalo_3: [],
+        cavalo_4: [],
+        cavalo_5: []
+    }
+
+    let total_cavalo1 = 0;
+    let total_cavalo2 = 0;
+    let total_cavalo3 = 0;
+    let total_cavalo4 = 0;
+    let total_cavalo5 = 0;
+
+    let cont_voltas = 0;
+
+    function volta() {
+        let cavalo1 = Number,(Math.random() * 2 + 7).toFixed(1);
+        let cavalo2 = (Math.random() * 2 + 7).toFixed(1);
+        let cavalo3 = (Math.random() * 2 + 7).toFixed(1);
+        let cavalo4 = (Math.random() * 2 + 7).toFixed(1);
+        let cavalo5 = (Math.random() * 2 + 7).toFixed(1);
+
+        if (cont_voltas == 7) {
+            finalizar()
+            cont_voltas = 0;
+        } else {
+            json_volta.cavalo_1.push(cavalo1)
+            json_volta.cavalo_2.push(cavalo2)
+            json_volta.cavalo_3.push(cavalo3)
+            json_volta.cavalo_4.push(cavalo4)
+            json_volta.cavalo_5.push(cavalo5)
+
+            total_cavalo1 += cavalo1;
+            total_cavalo2 += cavalo2;
+            total_cavalo3 += cavalo3;
+            total_cavalo4 += cavalo4;
+            total_cavalo5 += cavalo5;
+
+            div_msg.innerHTML += `<br><br>Volta ${cont_voltas + 1} <br>
+            Cavalo01 – ${cavalo1} – ${total_cavalo1} <br>
+            Cavalo02 – ${cavalo2} – ${total_cavalo2} <br>
+            Cavalo03 – ${cavalo3} – ${total_cavalo3}<br>
+            Cavalo04 – ${cavalo4} – ${total_cavalo4} <br>
+            Cavalo05 – ${cavalo5} – ${total_cavalo5}  `
+        }
+        cont_voltas++
+
+        console.log(cavalo1)
+    }
+
+    function finalizar() {
+        let primeiro = 999999999;
+        let segundo = 999999999;
+        let terceiro = 999999999;
+
+        var i_primeiro = 0;
+        var i_segundo = 0;
+        var i_terceiro = 0;
+
+        let vt_totais = [total_cavalo1, total_cavalo2, total_cavalo3, total_cavalo4, total_cavalo5];
+
+        for (var i = 0; i < vt_totais.length; i++) {
+            if (vt_totais[i] < primeiro) {
+
+                primeiro = vt_totais[i];
+                i_primeiro = i + 1;
+
+            } else if (vt_totais[i] < segundo) {
+
+                segundo = vt_totais[i];
+                i_segundo = i + 1;
+
+            } else if (vt_totais[i] < terceiro) {
+
+                terceiro = vt_totais[i]
+                i_terceiro = i + 1;
+
+            }
+
+        }
+        console.log(vt_totais)
+
+        console.log(i_primeiro)
+        console.log(primeiro)
+
+        /*   for (var i = 0; i < vt_totais.legth; i++) {
+   
+               if (i == i_primeiro - 1 || i == i_segundo - 1 || i == i_terceiro - 1) {
+                   break
+   
+               } else if (vt_totais[i] == primeiro) {
+                   if (i_primeiro == 1) {
+                       if (json_volta.cavalo_1[json_volta.cavalo_1.legth - 1] < 
+   
+                       }
+               }
+           }*/
+    }
+
+</script>
